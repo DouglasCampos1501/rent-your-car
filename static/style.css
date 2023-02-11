@@ -496,7 +496,7 @@ body.mobile-nav-active {
     }
 
 #regras {
-    background: url("../img/cars.jpg") center top no-repeat fixed;
+    background: url("{{ url_for('static', filename='img/cars.jpg')}}") center top no-repeat fixed;
     background-size: cover;
     padding: 60px 0 40px 0;
     position: relative;
@@ -678,7 +678,7 @@ body.mobile-nav-active {
 
     #estoque .estoque-item {
         position: relative;
-        height: 360px;
+        height: 390px;
         overflow: hidden;
     }
 
@@ -701,7 +701,7 @@ body.mobile-nav-active {
             background: #fff;
             text-align: center;
             padding: 30px;
-            height: 90px;
+            height: 120px;
             border-radius: 0 0 3px 3px;
         }
 
@@ -816,6 +816,9 @@ body.mobile-nav-active {
         background: #13a456;
     }
 
+.dois{
+    margin-left: 30px;
+}
 
 #cadastro input::file-selector-button {
     background: red;
@@ -972,4 +975,6 @@ body.mobile-nav-active {
 .paddTop{
     padding-top: 80px;
 }
+
+
  

@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <title>Rent Your Car</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="{{ url_for('static', filename='img/favicon.png')}}" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ionicons/css/ionicons.min.css')}}">
+
+    <script>
+        function onDelete(id) {
+            fetch(`http://127.0.0.1:5001/delete/${id}`, { method: "POST" }).then(() => {
+                document.location.reload(true)
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <header id="header" style="background-color: black">
+        <div class="navbar-fixed-top">
+            <div id="logo">
+                <a href="index.html"><img class="icone" src="{{ url_for('static', filename='img/Logo_branco.nm.png')}}"
+                        alt="Logo da Rent Your Car" title="Rent Your Car" /></a>
+            </div>
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="../index.html#regras">COMO FUNCIONA</a></li>
+                    <li><a href="../index.html#garantias">GARANTIAS</a></li>
+                    <li class="menu-active"><a href="#estoque">VEÍCULOS DISPONÍVEIS</a></li>
+                    <li><a href="../index.html#cadastro">CADASTRE SEU VEÍCULO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- FORM EDITAR VEÍCULO -->
+    <section id="cadastro" class="section-bg wow fadeInUp">
+        <div class="container paddTop">
+            <div class="section-header">
+                <h3>PAINEL ADMINISTRATIVO</h3>
+                <p>Utilize esse painel para alterar apenas os dados dos carros, imagens e cliente não são possíveis
+                    alterar no momento.</p>
+            </div>
+            <div class="row">
+                {% for car in car %}
+                <div class="col-md-12 paddTop">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="{{car.name}}"
+                                disabled />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="{{car.email}}"
+                                disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <figure>
+                        <img src="/static/img/{{ car.image}}" class="img-fluid">
+                    </figure>
+                </div>
+                <div class="col-md-8">
+                    <div class="form">
+                        <form action="/car/{{car.id}}" method="post" role="form" class="cadastroForm">
+                            <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" name="model" id="model"
+                                        value="{{car.model}}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" name="brand" id="brand"
+                                        value="{{car.brand}}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" name="year" id="year"
+                                        value="{{car.year}}" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="text" class="form-control" name="daily" id="daily"
+                                        value="R$: {{car.daily}}" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="text" class="form-control" name="status" id="status"
+                                        value="{{car.status}}" />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input type="text" class="form-control" name="observation" id="observation"
+                                        value="{{car.observation}}" />
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" value="Submit">ALTERAR DADOS</button>
+                                <button type="submit" value="Submit" class="dois" onclick="onDelete('{{car.id}}')">REMOVER ANÚNCIO</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 footer-info">
+                        <a href="#intro"><img class="icone"
+                                src="{{ url_for('static', filename='img/Logo_branco.nm.png')}}"
+                                alt="Logo da Rent Your Car" title="Rent Your Car" /></a>
+                        <p>&nbsp;</p>
+                        <p class="footer-padd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque blandit
+                            rhoncus odio, nec maximus massa mattis quis.</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="ion-ios-arrow-right"></i> <a href="../index.html">HOME</a></li>
+                            <li><i class="ion-ios-arrow-right"></i> <a href="../index.html#regras">COMO FUNCIONA</a></li>
+                            <li><i class="ion-ios-arrow-right"></i> <a href="../index.html#garantias">GARANTIAS</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-cadastro">
+                        <h4>FALE CONOSCO</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 333 <br>
+                            Alguma Cidade - Estado<br>
+                            Brasil <br>
+                            <strong>Telefone:</strong> 41 997195913<br>
+                            <strong>contato@rentyourcar.com.br</strong><br>
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-newsletter">
+                        <h4>RECEBE NOTÍCIAS</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                        <form action="" method="post">
+                            <input type="email" name="email"><input type="submit" value="ASSINE">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong>Douglas Campos</strong>.
+            </div>
+            <div class="credits">
+            </div>
+        </div>
+    </footer>
+    <a href="#" class="back-to-top"><i class="ion ion-chevron-up"></i></a>
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+    <script>
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                document.getElementById("header").style.background = "rgba(0, 0, 0, 0.7)";
+            } else {
+                document.getElementById("header").style.background = "black";
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
